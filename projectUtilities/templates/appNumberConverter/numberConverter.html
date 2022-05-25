@@ -1,0 +1,68 @@
+{% extends 'generic/genericOne.html' %}
+{% load static %}
+
+{% block title %}Number Converter{% endblock %}
+
+{% block numberConverterActive %}active{% endblock %}
+{% block numberConverterAriaCurrent%}aria-current='page'{% endblock %}
+
+{% block bodyContent %}
+<div class="container">
+  <h1 class="display-6">Welcome to <strong><em>Number Converter!!</em></strong></h1>
+  <p class="lead">This tool helps you to convert Number into Roman.</p>
+  <hr class="my-6">
+</div>
+
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        {% if response == True %}
+        <input type="number" id="inputNumber" name="inputNumber" class="form-control" min='1' max='3000' value="{{input}}" placeholder="Input Number" aria-label="Input Number" aria-describedby="inputHelp" readonly required>
+        {% else %}
+        <input type="number" id="inputNumber" name="inputNumber" class="form-control" min='1' max='3000' placeholder="Input Number" aria-label="Input Number" aria-describedby="inputHelp" readonly required>
+        {% endif %}
+        <div id="inputHelp" class="form-text">Input Number goes here</div>
+      </div>
+      <div class="col">
+        {% if response == True %}
+        <input type="text" id="resultRoman" class="form-control" value="{{result}}" placeholder="Output Roman" aria-label="Result Roman"  aria-describedby="outputHelp" disabled readonly>
+        {% else %}
+        <input type="text" id="resultRoman" class="form-control" placeholder="Output Roman" aria-label="Result Roman"  aria-describedby="outputHelp" disabled readonly>
+        {% endif %}
+        <div id="outputHelp" class="form-text">Output Roman displayed here</div>
+      </div>
+      <div class="col">
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+
+  <table class="keyBoard">
+    <tr>
+      <td class="key"><button type="submit" id="key_9" class="btn btn-primary" value="9">9</button></td>
+      <td class="key"><button type="submit" id="key_8" class="btn btn-primary" value="8">8</button></td>
+      <td class="key"><button type="submit" id="key_7" class="btn btn-primary" value="7">7</button></td>
+    </tr>
+    <tr>
+      <td class="key"><button type="submit" id="key_6" class="btn btn-primary">6</button></td>
+      <td class="key"><button type="submit" id="key_5" class="btn btn-primary">5</button></td>
+      <td class="key"><button type="submit" id="key_4" class="btn btn-primary">4</button></td>
+    </tr>
+    <tr>
+      <td class="key"><button type="submit" id="key_3" class="btn btn-primary">3</button></td>
+      <td class="key"><button type="submit" id="key_2" class="btn btn-primary">2</button></td>
+      <td class="key"><button type="submit" id="key_1" class="btn btn-primary">1</button></td>
+    </tr>
+    <tr>
+      <td class="key"><button type="submit" id="key_0" class="btn btn-primary">0</button></td>
+      <td class="key"><button type="submit" id="key_" class="btn btn-primary">Clear</button></td>
+    </tr>
+  </table>
+</div>
+{% endblock %}
+
+{% block jsAttachment %}
+<script src="{% static 'numberConverter.js' %}"></script>
+{% endblock %}

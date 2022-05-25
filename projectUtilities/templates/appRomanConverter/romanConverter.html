@@ -1,0 +1,63 @@
+{% extends 'generic/genericOne.html' %}
+{% load static %}
+
+{% block title %}Roman Converter{% endblock %}
+
+{% block romanConverterActive %}active{% endblock %}
+{% block romanConverterAriaCurrent %}aria-current='page'{% endblock %}
+
+{% block bodyContent %}
+<div class="container">
+  <h1 class="display-6">Welcome to <strong><em>Roman Converter!!</em></strong></h1>
+  <p class="lead">This tool helps you to convert Roman into Number.</p>
+  <hr class="my-6">
+</div>
+
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        {% if response == True %}
+        <input type="text" id="inputRoman" name="inputRoman" class="form-control" value="{{input}}" placeholder="Input Roman" aria-label="Input Roman" aria-describedby="inputHelp" readonly required>
+        {% else %}
+        <input type="text" id="inputRoman" name="inputRoman" class="form-control" placeholder="Input Roman" aria-label="Input Roman" aria-describedby="inputHelp" readonly required>
+        {% endif %}
+        <div id="inputHelp" class="form-text">Your Input Roman goes here</div>
+      </div>
+      <div class="col">
+        {% if response == True %}
+        <input type="text" id="resultNumber" name="resultNumber" class="form-control" value="{{result}}" placeholder="Result Number" aria-label="Result Number" aria-describedby="outputHelp" disabled readonly>
+        {% else %}
+        <input type="text" id="resultNumber" name="resultNumber" class="form-control" placeholder="Result Number" aria-label="Result Number" aria-describedby="outputHelp" disabled readonly>
+        {% endif %}
+        <div id="outputHelp" class="form-text">Output Number displayed here</div>
+      </div>
+      <div class="col">
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+
+  <table class="keyBoard">
+    <tr>
+      <td class="key"><button type="submit" id="key_M" class="btn btn-primary">M</button></td>
+      <td class="key"><button type="submit" id="key_D" class="btn btn-primary">D</button></td>
+      <td class="key"><button type="submit" id="key_C" class="btn btn-primary">C</button></td>
+    </tr>
+    <tr>
+      <td class="key"><button type="submit" id="key_L" class="btn btn-primary">L</button></td>
+      <td class="key"><button type="submit" id="key_X" class="btn btn-primary">X</button></td>
+      <td class="key"><button type="submit" id="key_V" class="btn btn-primary">V</button></td>
+    </tr>
+    <tr>
+      <td class="key"><button type="submit" id="key_I" class="btn btn-primary">I</button></td>
+      <td class="key"><button type="submit" id="key_" class="btn btn-primary">Clear</button></td>
+    </tr>
+  </table>
+</div>
+{% endblock %}
+
+{% block jsAttachment %}
+<script src="{% static 'romanConverter.js' %}"></script>
+{% endblock %}

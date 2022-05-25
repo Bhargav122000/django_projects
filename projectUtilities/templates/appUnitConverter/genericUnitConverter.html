@@ -1,0 +1,169 @@
+{% extends 'generic/genericOne.html' %}
+{% load static %}
+
+{% block title %}{{measurement}} Converter{% endblock %}
+
+{% block unitConverterActive %}active{% endblock %}
+{% block unitConverterAriaCurrent %}aria-current='page'{% endblock %}
+
+{% block genericUnitConverterNav %}
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'appUnitConverter:unitConverter' %}">Unit Converter</a>
+          </li>
+          <li class="nav-item">
+            {% if measurement == 'Area' %}
+            <a class="nav-link active" aria-current="page" href="{% url 'appUnitConverter:areaUnitConverter' %}">Area</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'appUnitConverter:areaUnitConverter' %}">Area</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            {% if measurement == 'Data' %}
+            <a class="nav-link active" aria-current="page" href="{% url 'appUnitConverter:dataUnitConverter' %}">Data</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'appUnitConverter:dataUnitConverter' %}">Data</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            {% if measurement == 'Length' %}
+            <a class="nav-link active" aria-current="page" href="{% url 'appUnitConverter:lengthUnitConverter' %}">Length</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'appUnitConverter:lengthUnitConverter' %}">Length</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            {% if measurement == 'Mass' %}
+            <a class="nav-link active" aria-current="page" href="{% url 'appUnitConverter:massUnitConverter' %}">Mass</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'appUnitConverter:massUnitConverter' %}">Mass</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            {% if measurement == 'Temperature' %}
+            <a class="nav-link active" aria-current="page" href="{% url 'appUnitConverter:temperatureUnitConverter' %}">Temperature</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'appUnitConverter:temperatureUnitConverter' %}">Temperature</a>
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            {% if measurement == 'Volume' %}
+            <a class="nav-link active" aria-current="page" href="{% url 'appUnitConverter:volumeUnitConverter' %}">Volume</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'appUnitConverter:volumeUnitConverter' %}">Volume</a>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+{% endblock %}
+
+{% block bodyContent %}
+<div class="container">
+  <h1 class="display-6">Welcome to <strong><em>{{measurement}} Converter!!</em></strong></h1>
+  <p class="lead">This tool helps you to convert {{measurement}} values from one unit to other unit.</p>
+  <hr class="my-6">
+</div>
+
+<div class="container">
+  <h4>{{measurement}} Units Considered :</h4>
+  <ul>
+    {% for unit in units %}
+    <li>{{unit}}</li>
+    {% endfor %}
+  </ul>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        <select name="fromUnit" id="fromUnit" class="form-select" aria-label="Default select example" aria-describedby="fromUnitHelp" required>
+          <option selected>select from unit</option>
+          {% for unit, symbol in units.items %}
+          {% if response == True and unit == fromUnit %}
+          <option value="{{unit}}" selected>{{unit}} ({{symbol}})</option>
+          {% else %}
+          <option value="{{unit}}">{{unit}} ({{symbol}})</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+        <div id="fromUnitHelp" class="form-text">'From Unit' to select here</div>
+      </div>
+      <div class="col">
+        <select name="toUnit" id="toUnit" class="form-select" aria-label="Default select example" aria-describedby="toUnitHelp" required>
+          <option selected>select to unit</option>
+          {% for unit, symbol in units.items %}
+          {% if response == True and unit == toUnit %}
+          <option value="{{unit}}" selected>{{unit}} ({{symbol}})</option>
+          {% else %}
+          <option value="{{unit}}">{{unit}} ({{symbol}})</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+        <div id="outputHelp" class="form-text">'To Unit' to select here</div>
+      </div>
+      <div class="col">
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+    <p></p>
+    <div class="row">
+      <div class="col">
+        {% if response == True %}
+        <input type="text" id="input" name="input" value={{input}} class="form-control" placeholder="Input-from unit value" aria-label="Input" aria-describedby="fromUnitInputHelp" readonly required>
+        {% else %}
+        <input type="text" id="input" name="input" class="form-control" placeholder="Input-from unit value" aria-label="Input" aria-describedby="fromUnitInputHelp" readonly required>
+        {% endif %}
+        <div id="fromUnitInputHelp" class="form-text">'From Unit Input' goes here</div>
+      </div>
+      <div class="col">
+        {% if response == True %}
+        <input type="text" id="result" name="result" value={{result}} class="form-control" placeholder="Result-to unit value" aria-label="Result" disabled readonly aria-describedby="toUnitResultHelp">
+        {% else %}
+        <input type="text" id="result" name="result" class="form-control" placeholder="Result-to unit value" aria-label="Result" disabled readonly aria-describedby="toUnitResultHelp">
+        {% endif %}
+        <div id="toUnitResultHelp" class="form-text">'To Unit Result' displayed here</div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<table class="keyBoard">
+  <tr>
+    <td class="key"><button type="submit" id="key_7" class="btn btn-primary">7</button></td>
+    <td class="key"><button type="submit" id="key_8" class="btn btn-primary">8</button></td>
+    <td class="key"><button type="submit" id="key_9" class="btn btn-primary">9</button></td>
+  </tr>
+  <tr>
+    <td class="key"><button type="submit" id="key_4" class="btn btn-primary">4</button></td>
+    <td class="key"><button type="submit" id="key_5" class="btn btn-primary">5</button></td>
+    <td class="key"><button type="submit" id="key_6" class="btn btn-primary">6</button></td>
+  </tr>
+  <tr>
+    <td class="key"><button type="submit" id="key_1" class="btn btn-primary">1</button></td>
+    <td class="key"><button type="submit" id="key_2" class="btn btn-primary">2</button></td>
+    <td class="key"><button type="submit" id="key_3" class="btn btn-primary">3</button></td>
+  </tr>
+  <tr>
+    <td class="key"><button type="submit" id="key_0" class="btn btn-primary">0</button></td>
+    <td class="key"><button type="submit" id="key_." class="btn btn-primary">.</button></td>
+    <td class="key"><button type="submit" id="key_00" class="btn btn-primary">00</button></td>
+  </tr>
+  <tr>
+    <td class="key"><button type="submit" id="key_" class="btn btn-primary">Clr</button></td>
+  </tr>
+</table>
+{% endblock %}
+
+{% block jsAttachment %}
+<script src="{% static 'unitConverter.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,23 @@
+body {
+  background-color: #FFFFFF;
+  background-image: linear-gradient(180deg, #FFFFFF 0%, #6284FF 50%, #FF0000 100%);
+}
+
+a {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.keyBoard {
+  text-align: center;
+  margin-top: 2%;
+  margin-left: 5%;
+  border: 5px ridge orange;
+  width: 20%;
+  height: 20%;
+}
+
+.key {
+  text-align: center;
+  padding: 5px;
+}

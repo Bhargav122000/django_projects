@@ -1,0 +1,79 @@
+{% extends 'generic/genericOne.html' %}
+{% load static %}
+
+{% block title %}Calculator{% endblock %}
+
+{% block calculatorActive %}active{% endblock %}
+{% block calculatorAriaCurrent %}aria-current='page'{% endblock %}
+
+{% block bodyContent %}
+<div class="container">
+  <h1 class="display-6">Welcome to <strong><em>Basic Arithmetic Calculator!!</em></strong></h1>
+  <p class="lead">This tool helps you to compute basic arithmetic calculations.</p>
+  <hr class="my-6">
+</div>
+
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        {% if response == True %}
+        <input type="text" id="input" name="input" class="form-control" value="{{input}}" placeholder="Input Expression" aria-label="Input Expression" aria-describedby="inputHelp" readonly required>
+        {% else %}
+        <input type="text" id="input" name="input" class="form-control" placeholder="Input Expression" aria-label="Input Expression" aria-describedby="inputHelp" readonly required>
+        {% endif %}
+        <div id="inputHelp" class="form-text">Your Input goes here</div>
+      </div>
+      <div class="col">
+        {% if response == True %}
+        <input type="text" id="result" name="result" class="form-control" value="{{result}}" placeholder="Result" aria-label="Result" aria-describedby="outputHelp" disabled readonly>
+        {% else %}
+        <input type="text" id="result" name="result" class="form-control" placeholder="Result" aria-label="Result" aria-describedby="outputHelp" disabled readonly>
+        {% endif %}
+        <div id="outputHelp" class="form-text">Your Result displayed here</div>
+      </div>
+      <div class="col">
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<table class="keyBoard">
+  <tr>
+    <td class="key"><button type="submit" id="key_" class="btn btn-primary">C</button></td>
+    <td class="key"><button type="submit" id="key_( )" class="btn btn-primary">( )</button></td>
+    <td class="key"><button type="submit" id="key_^" class="btn btn-primary">^</button></td>
+    <td class="key"><button type="submit" id="key_/" class="btn btn-primary">/</button></td>
+  </tr>
+  <tr>
+    <td class="key"><button type="submit" id="key_7" class="btn btn-primary">7</button></td>
+    <td class="key"><button type="submit" id="key_8" class="btn btn-primary">8</button></td>
+    <td class="key"><button type="submit" id="key_9" class="btn btn-primary">9</button></td>
+    <td class="key"><button type="submit" id="key_*" class="btn btn-primary">*</button></td>
+  </tr>
+  <tr>
+    <td class="key"><button type="submit" id="key_4" class="btn btn-primary">4</button></td>
+    <td class="key"><button type="submit" id="key_5" class="btn btn-primary">5</button></td>
+    <td class="key"><button type="submit" id="key_6" class="btn btn-primary">6</button></td>
+    <td class="key"><button type="submit" id="key_-" class="btn btn-primary">-</button></td>
+  </tr>
+  <tr>
+    <td class="key"><button type="submit" id="key_1" class="btn btn-primary">1</button></td>
+    <td class="key"><button type="submit" id="key_2" class="btn btn-primary">2</button></td>
+    <td class="key"><button type="submit" id="key_3" class="btn btn-primary">3</button></td>
+    <td class="key"><button type="submit" id="key_+" class="btn btn-primary">+</button></td>
+  </tr>
+  <tr>
+    <td class="key"><button type="submit" id="key_+/-" class="btn btn-primary">+/-</button></td>
+    <td class="key"><button type="submit" id="key_0" class="btn btn-primary">0</button></td>
+    <td class="key"><button type="submit" id="key_." class="btn btn-primary">.</button></td>
+    <td class="key"><button type="submit" id="key_00" class="btn btn-primary">00</button></td>
+  </tr>
+</table>
+{% endblock %}
+
+{% block jsAttachment %}
+<script src="{% static 'calculator.js' %}"></script>
+{% endblock %}

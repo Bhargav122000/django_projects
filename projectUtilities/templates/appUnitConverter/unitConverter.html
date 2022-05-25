@@ -1,0 +1,80 @@
+{% extends 'generic/genericOne.html' %}
+
+{% block title %}Unit Converter{% endblock %}
+
+{% block unitConverterActive %}active{% endblock %}
+{% block unitConverterAriaCurrent %}aria-current='page'{% endblock %}
+
+{% block bodyContent %}
+<div class="container">
+  <h1 class="display-6">Welcome to <strong><em>Unit Converter!!</em></strong></h1>
+  <p class="lead">This tool helps you to convert measurement values from one unit to other unit.</p>
+  <hr class="my-6">
+</div>
+
+<div class="container">
+  <h4>Measurements Include:</h4>
+  <ul>
+    <li>
+      Area
+      <a href="{% url 'appUnitConverter:areaUnitConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Units :</li>
+      <ul>
+        <li>[Acre] [Hectare] [Square Centimetre] [Square Foot] [Square Inch] [Square Metre]</li>
+      </ul>
+    </ul>
+    <li>
+      Data
+      <a href="{% url 'appUnitConverter:dataUnitConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Units :</li>
+      <ul>
+        <li>[Bit] [Byte] [Kilobyte] [Megabyte] [Gigabyte] [Terabyte]</li>
+      </ul>
+    </ul>
+    <li>
+      Length
+      <a href="{% url 'appUnitConverter:lengthUnitConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Units :</li>
+      <ul>
+        <li>[Millimetre] [Centimetre] [Metre] [Kilometre] [Inch] [Foot] [Yard] [Mile]</li>
+      </ul>
+    </ul>
+    <li>
+      Mass
+      <a href="{% url 'appUnitConverter:massUnitConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Units :</li>
+      <ul>
+        <li>[Ton] [Pound] [Ounce] [Kilogram] [Gram]</li>
+      </ul>
+    </ul>
+    <li>
+      Temperature
+      <a href="{% url 'appUnitConverter:temperatureUnitConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Units :</li>
+      <ul>
+        <li>[Celsius] [Fahrenheit] [Kelvin]</li>
+      </ul>
+    </ul>
+    <li>
+      Volume
+      <a href="{% url 'appUnitConverter:volumeUnitConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Units :</li>
+      <ul>
+        <li>[Gallon] [Litre] [Millilitre] [Cubic Centimetre] [Cubic Metre] [Cubic Inch] [Cubic Foot]</li>
+      </ul>
+    </ul>
+  </ul>
+</div>
+{% endblock %}

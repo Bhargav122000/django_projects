@@ -1,0 +1,63 @@
+{% extends 'generic/genericOne.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block welcomeActive %}active{% endblock %}
+{% block welcomeAriaCurrent %}aria-current='page'{% endblock %}
+
+{% block bodyContent %}
+<div class="container">
+  <h1 class="display-6">Welcome to <strong><em>Utility Tool !!</em></strong></h1>
+  <p class="lead">This website helps you as a basic utility tool. It has some amazing tools.</p>
+  <hr class="my-6">
+</div>
+
+<div class="container">
+  <h4>Tools Included:</h4>
+  <ul>
+    <li>
+      Basic Arithmetic Calculator
+      <a href="{% url 'appCalculator:calculator' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Operators include:</li>
+      <ul>
+        <li>Addition</li>
+        <li>Subtraction</li>
+        <li>Multiplication</li>
+        <li>Division</li>
+        <li>Exponent</li>
+      </ul>
+    </ul>
+    <li>
+      Unit Converter
+      <a href="{% url 'appUnitConverter:unitConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Measurements include:</li>
+      <ul>
+        <li>Area</li>
+        <li>Data</li>
+        <li>Length</li>
+        <li>Mass</li>
+        <li>Temperature</li>
+        <li>Volume</li>
+      </ul>
+    </ul>
+    <li>
+      Roman Converter
+      <a href="{% url 'appRomanConverter:romanConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Converts Roman to Number</li>
+    </ul>
+    <li>
+      Number Converter
+      <a href="{% url 'appNumberConverter:numberConverter' %}">  go!</a>
+    </li>
+    <ul>
+      <li>Converts Number to Roman</li>
+    </ul>
+  </ul>
+</div>
+{% endblock %}
